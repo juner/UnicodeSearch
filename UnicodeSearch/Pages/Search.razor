@@ -1,0 +1,34 @@
+﻿@page "/search"
+@using System.Unicode;
+@using System.Globalization;
+
+<h3>Search</h3>
+<div>Unicode @UnicodeInfo.UnicodeVersion</div>
+<input type="search" value="" @oninput="InputText" />
+@if (UnicodeList.Any())
+{
+    <ul>
+        @foreach (var UnicodeInfo in UnicodeList)
+        {
+            <li><div>
+                    <div>@UnicodeInfo.Name</div>
+                    <div>@UnicodeInfo.Category</div>
+            </div></li>
+        }
+    </ul>
+}
+@code {
+    private List<UnicodeCharInfo> UnicodeList = new List<UnicodeCharInfo>();
+    private void InputText(ChangeEventArgs e)
+    {
+        UnicodeList.Clear();
+        var Enumerator = StringInfo.GetTextElementEnumerator(e.Value.ToString());
+        while (Enumerator.MoveNext())
+        {
+            var Current = Enumerator.Current.ToString();
+            var CodePoint = Char.ConvertToUtf32(Current, 0);
+            var CharInfo = UnicodeInfo.GetCharInfo(CodePoint);
+            UnicodeList.Add(CharInfo);
+        }
+    }
+}

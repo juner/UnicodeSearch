@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30309.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnicodeSearch", "UnicodeSearch\UnicodeSearch.csproj", "{3F3D2114-1ABA-4B61-9780-55952501687F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F3D2114-1ABA-4B61-9780-55952501687F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F3D2114-1ABA-4B61-9780-55952501687F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F3D2114-1ABA-4B61-9780-55952501687F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F3D2114-1ABA-4B61-9780-55952501687F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1AC394F3-D492-426A-AA20-9E8612455C08}
+	EndGlobalSection
+EndGlobal
