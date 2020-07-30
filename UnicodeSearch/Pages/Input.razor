@@ -2,51 +2,36 @@
 @using System.Unicode;
 @using System.Globalization;
 <div class="input-group mb-3">
-  <input type="search" value="@Value" class="form-control" name="q" placeholder="CHARACTER" @oninput="InputText" />
+    <input type="search" value="@Value" class="form-control" name="q" placeholder="CHARACTER" @oninput="InputText" />
 </div>
 <div class="text-right">Unicode @UnicodeInfo.UnicodeVersion</div>
 @if (UnicodeList.Any())
 {
-  <div class="d-flex flex-column">
+<div class="d-flex flex-column">
     @foreach (var UnicodeInfo in UnicodeList)
     {
-      <div class="d-flex flex-row border p-1">
-        <div class="display-2 mr-2 d-flex justify-content-between" style="width:8ex;font-family:monospace;">
-          <span>U+</span>
-          <span class="flex-fill text-right">@string.Format("{0:X4}", UnicodeInfo.CodePoint)</span></div>
-        <div class="d-flex flex-column flex-fill">
-          <div class="d-flex flex-row">
+<div class="d-flex flex-row border p-1">
+    <div class="display-2 mr-2 d-flex justify-content-between" style="width:8ex;font-family:monospace;">
+        <span>U+</span>
+        <span class="flex-fill text-right">@string.Format("{0:X4}", UnicodeInfo.CodePoint)</span>
+    </div>
+    <div class="d-flex flex-column flex-fill">
+        <div class="d-flex flex-row">
             <div>
-              <span class="d-inline-block p-1 border mr-1" style="min-width:2ex;min-height:2ex">&#8203;@(UnicodeInfo.GetDisplayText())&#8203;</span>
+                <span class="d-inline-block p-1 border mr-1" style="min-width:2ex;min-height:2ex">&#8203;@(UnicodeInfo.GetDisplayText())&#8203;</span>
             </div>
             <div class="flex-fill overflow-auto">@(UnicodeInfo.Name ?? UnicodeInfo.OldName)</div>
-          </div>
-          <div>@UnicodeInfo.Category</div>
         </div>
-      </div>
-    }
-  </div>
-}
+        <div>@UnicodeInfo.Category</div>
+    </div>
+</div>}
+</div>}
 @code {
-    private string Value;
+    private string Value = string.Empty;
     private List<UnicodeCharInfo> UnicodeList = new List<UnicodeCharInfo>();
     private void InputText(ChangeEventArgs e)
     {
-      UnicodeList.Clear();
-      var Enumerator = StringInfo.GetTextElementEnumerator(e.Value.ToString());
-      while (Enumerator.MoveNext())
-      {
-        var Current = Enumerator.Current.ToString();
-        var CodePoint = Char.ConvertToUtf32(Current, 0);
-        var CharInfo = UnicodeInfo.GetCharInfo(CodePoint);
-        UnicodeList.Add(CharInfo);
-        try
-        {
-          CodePoint = Char.ConvertToUtf32(Current, 1);
-          CharInfo = UnicodeInfo.GetCharInfo(CodePoint);
-          UnicodeList.Add(CharInfo);
-        }
-        catch (Exception) { }
-      }
-    }
+        UnicodeList.Clear();
+        UnicodeList.AddRange(new UnicodeEnumerable(e.Value.ToString()));
+    } 
 }

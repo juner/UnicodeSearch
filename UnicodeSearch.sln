@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnicodeSearch", "UnicodeSearch\UnicodeSearch.csproj", "{3F3D2114-1ABA-4B61-9780-55952501687F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnicodeSearch", "UnicodeSearch\UnicodeSearch.csproj", "{3F3D2114-1ABA-4B61-9780-55952501687F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnicodeSearchLib", "UnicodeSearchLib\UnicodeSearchLib.csproj", "{2BDB7E63-9E01-4338-9BAA-2730010A0B7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{12FEA751-2DEB-4291-BBF9-12AE888ACFBE}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		.github\workflows\gh-pages.yml = .github\workflows\gh-pages.yml
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnicodeSearchLib.Tests", "UnicodeSearchLib.Tests\UnicodeSearchLib.Tests.csproj", "{DC8FB918-9C38-492A-B926-EADE3E0EBDEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +27,14 @@ Global
 		{3F3D2114-1ABA-4B61-9780-55952501687F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F3D2114-1ABA-4B61-9780-55952501687F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F3D2114-1ABA-4B61-9780-55952501687F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BDB7E63-9E01-4338-9BAA-2730010A0B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BDB7E63-9E01-4338-9BAA-2730010A0B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BDB7E63-9E01-4338-9BAA-2730010A0B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BDB7E63-9E01-4338-9BAA-2730010A0B7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC8FB918-9C38-492A-B926-EADE3E0EBDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC8FB918-9C38-492A-B926-EADE3E0EBDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC8FB918-9C38-492A-B926-EADE3E0EBDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC8FB918-9C38-492A-B926-EADE3E0EBDEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
