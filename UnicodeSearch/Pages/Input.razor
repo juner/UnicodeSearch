@@ -1,4 +1,4 @@
-@page "/"
+﻿@page "/"
 @using System.Unicode;
 @using System.Globalization;
 <div class="input-group mb-3">
@@ -7,25 +7,29 @@
 <div class="text-right">Unicode @UnicodeInfo.UnicodeVersion</div>
 @if (UnicodeList.Any())
 {
-<div class="d-flex flex-column">
     @foreach (var UnicodeInfo in UnicodeList)
     {
-<div class="d-flex flex-row border p-1">
-    <div class="display-2 mr-2 d-flex justify-content-between" style="width:8ex;font-family:monospace;">
-        <span>U+</span>
-        <span class="flex-fill text-right">@string.Format("{0:X4}", UnicodeInfo.CodePoint)</span>
+<div class="row">
+    <div class="px-3">
+        <div class="display-2 d-flex" style="max-width:8ex;font-family:monospace;">
+            <span>U+</span>
+            <span class="flex-fill text-right">@string.Format("{0:X4}", UnicodeInfo.CodePoint)</span>
+        </div>
     </div>
-    <div class="d-flex flex-column flex-fill">
-        <div class="d-flex flex-row">
-            <div>
+    <div class="col-sm-12 col-md-auto col-xl-auto">
+        <div class="row">
+            <div class="px-3">
                 <span class="d-inline-block p-1 border mr-1" style="min-width:2ex;min-height:2ex">&#8203;@(UnicodeInfo.GetDisplayText())&#8203;</span>
             </div>
-            <div class="flex-fill overflow-auto">@(UnicodeInfo.Name ?? UnicodeInfo.OldName)</div>
+            <div class="col-auto overflow-auto">@(UnicodeInfo.Name ?? UnicodeInfo.OldName)</div>
         </div>
-        <div>@UnicodeInfo.Category</div>
+        <div class="row">
+            <div class="px-3">Category:</div>
+            <div class="col-auto">@UnicodeInfo.Category</div>
+        </div>
     </div>
 </div>}
-</div>}
+}
 @code {
     private string Value = string.Empty;
     private List<UnicodeCharInfo> UnicodeList = new List<UnicodeCharInfo>();
