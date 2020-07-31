@@ -7,4 +7,8 @@
     <PathMap>$(RepoRoot)=.</PathMap>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="dotnet tool restore"/>
+    <Exec Command="dotnet tool run dotnet-format" />
+  </Target>
 </Project>
