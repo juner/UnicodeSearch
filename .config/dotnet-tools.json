@@ -7,6 +7,12 @@
       "commands": [
         "dotnet-format"
       ]
+    },
+    "dotnet-find-replace": {
+      "version": "1.0.0.4",
+      "commands": [
+        "dotnet-find-replace"
+      ]
     }
   }
 }
