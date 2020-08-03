@@ -21,9 +21,5 @@
   <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
-  <Target Name="PostBuild" BeforeTargets="PostBuildEvent">
-    <Exec Command="dotnet tool restore"/>
-    <Exec Command="dotnet tool run dotnet-find-replace -- --find &quot;return r[.]loadResource\(o,t\(o\),e\[o\],n\)&quot; --replace &quot;var p = r.loadResource(o,t(o),e[o],n); p.response.then((x) =&gt; { if (typeof window.loadResourceCallback === &apos;function&apos;) { window.loadResourceCallback(Object.keys(e).length, o, x);}}); return p;&quot; --include &quot;blazor[.]webassembly[.]js&quot;"/>
-  </Target>
 
 </Project>
