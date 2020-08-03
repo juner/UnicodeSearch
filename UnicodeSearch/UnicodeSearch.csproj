@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
       <TargetFramework>netstandard2.1</TargetFramework>
@@ -23,7 +23,7 @@
   </ItemGroup>
   <Target Name="PostBuild" BeforeTargets="PostBuildEvent">
     <Exec Command="dotnet tool restore"/>
-    <Exec Command="dotnet tool run dotnet-find-replace -- --find &quot;return r[.]loadResource\(o,t\(o\),e\[o\],n\)&quot; --replace &quot;var p = r.loadResource(o,t(o),e[o],n); p.response.then((x) =&gt; { if (typeof window.loadResourceCallback === &apos;function&apos;) { window.loadResourceCallback(Object.keys(e).length, o, x);}}); return p;&quot; --include &quot;blazor[.]webassembly[.]js&quot;"/>
+    <Exec Command="dotnet tool run dotnet-find-replace -- $(OutDir) --find &quot;return r[.]loadResource\(o,t\(o\),e\[o\],n\)&quot; --replace &quot;var p = r.loadResource(o,t(o),e[o],n); p.response.then((x) =&gt; { if (typeof window.loadResourceCallback === &apos;function&apos;) { window.loadResourceCallback(Object.keys(e).length, o, x);}}); return p;&quot; --include &quot;blazor[.]webassembly[.]js&quot;"/>
   </Target>
 
 </Project>
