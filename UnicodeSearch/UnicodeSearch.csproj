@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
     <PackageReference Include="System.Net.Http.Json" />
+    <PackageReference Include="Toolbelt.Blazor.HeadElement"/>
     <PackageReference Include="UnicodeInformation" />
   </ItemGroup>
 

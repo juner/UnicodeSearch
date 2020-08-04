@@ -3,6 +3,7 @@
 @page "/text/{Value}";
 @using System.Unicode;
 @inject NavigationManager nav;
+<Title>@(string.IsNullOrEmpty(Value) ? "" : Value + " - ") Unicode Information</Title>
 <div class="text-right">Unicode @UnicodeInfo.UnicodeVersion</div>
 <div class="input-group mb-3">
     <input type="search" value="@Value" class="form-control" name="q" placeholder="CHARACTER" @oninput="InputText" />
