@@ -1,62 +1,111 @@
-﻿@page "/"
+@page "/";
+@page "/input";
+@page "/input/{Value}";
 @using System.Unicode;
+@inject NavigationManager nav;
 <div class="text-right">Unicode @UnicodeInfo.UnicodeVersion</div>
 <div class="input-group mb-3">
     <input type="search" value="@Value" class="form-control" name="q" placeholder="CHARACTER" @oninput="InputText" />
 </div>
 @if (UnicodeList.Any())
 {
+    var id = 0;
     @foreach (var UnicodeInfo in UnicodeList)
     {
-<div class="row my-3">
-    <div class="px-3">
-        <div class="display-2 d-flex" style="max-width:8ex;min-width:8ex;font-family:monospace;">
-            <span>U+</span>
-            <span class="flex-fill text-right">@string.Format("{0:X4}", UnicodeInfo.CodePoint)</span>
-        </div>
-    </div>
-    <div class="col-sm-12 col-md-auto col-xl-auto">
-        <div class="row">
+        id++;
+        var checkboxId = "checkbox-" + id;
+        var dataId = "data-" + id;
+        <div class="row my-3">
+            <input type="checkbox"
+                   class="d-none"
+                   id="@checkboxId" />
             <div class="px-3">
-                <span class="d-inline-block p-1 border mr-1" style="min-width:2ex;min-height:2ex">&#8203;@(UnicodeInfo.GetDisplayText())&#8203;</span>
+                <label for="@checkboxId" class="display-2 d-flex" style="max-width:8ex;min-width:8ex;font-family:monospace;">
+                    <span>U+</span>
+                    <span class="flex-fill text-right">@string.Format("{0:X4}", UnicodeInfo.CodePoint)</span>
+                </label>
             </div>
-            <div class="col-auto overflow-auto">@(UnicodeInfo.Name ?? UnicodeInfo.OldName)</div>
-        </div>
-        <table>
-            <tbody>
-                <tr>
-                    <th>Category:</th>
-                    <td>@UnicodeInfo.Category</td>
-                </tr>
-        @if (!string.IsNullOrEmpty(UnicodeInfo.VietnameseReading))
-        {
-                <tr>
-                    <th>VietnameseReading:</th>
-                    <td>@UnicodeInfo.VietnameseReading</td>
-                </tr>
-        }
-        @if (!string.IsNullOrEmpty(UnicodeInfo.HangulReading))
-        {
-                <tr>
-                    <th>HangulReading:</th>
-                    <td>@UnicodeInfo.HangulReading</td>
-                </tr>
-        }
-                <tr>
-                    <th>CanonicalCombiningClass:</th>
-                    <td>@UnicodeInfo.CanonicalCombiningClass</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>}
+            <div class="col-sm-12 col-md-auto col-xl-auto">
+                <label for="@checkboxId" class="row">
+                    <div class="px-3">
+                        <span class="d-inline-block p-1 border mr-1" style="min-width:2ex;min-height:2ex">&#8203;@(UnicodeInfo.GetDisplayText())&#8203;</span>
+                    </div>
+                    <div class="col-auto overflow-auto">@(UnicodeInfo.Name ?? UnicodeInfo.OldName)</div>
+                </label>
+                <table id="@dataId">
+                    <tbody>
+                        <tr>
+                            <th>Category:</th>
+                            <td>@UnicodeInfo.Category</td>
+                        </tr>
+                        @if (!string.IsNullOrEmpty(UnicodeInfo.VietnameseReading))
+                        {
+                            <tr>
+                                <th>VietnameseReading:</th>
+                                <td>@UnicodeInfo.VietnameseReading</td>
+                            </tr>
+                        }
+                        @if (!string.IsNullOrEmpty(UnicodeInfo.HangulReading))
+                        {
+                            <tr>
+                                <th>HangulReading:</th>
+                                <td>@UnicodeInfo.HangulReading</td>
+                            </tr>
+                        }
+                        @if (!string.IsNullOrEmpty(UnicodeInfo.KoreanReading))
+                        {
+                            <tr>
+                                <th>KoreanReading</th>
+                                <td>@UnicodeInfo.KoreanReading</td>
+                            </tr>
+                        }
+                        @if (!string.IsNullOrEmpty(UnicodeInfo.JapaneseOnReading))
+                        {
+                            <tr>
+                                <th>JapaneseOnReading</th>
+                                <td>@UnicodeInfo.JapaneseOnReading</td>
+                            </tr>
+                        }
+                        @if (!string.IsNullOrEmpty(UnicodeInfo.JapaneseKunReading))
+                        {
+                            <tr>
+                                <th>JapaneseKunReading</th>
+                                <td>@UnicodeInfo.JapaneseKunReading</td>
+                            </tr>
+                        }
+                        @if (!string.IsNullOrEmpty(UnicodeInfo.CantoneseReading))
+                        {
+                            <tr>
+                                <th>CantoneseReading</th>
+                                <td>@UnicodeInfo.CantoneseReading</td>
+                            </tr>
+                        }
+                        <tr>
+                            <th>CanonicalCombiningClass:</th>
+                            <td>@UnicodeInfo.CanonicalCombiningClass</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>}
 }
 @code {
-    private string Value = string.Empty;
+    [Parameter]
+    public string Value { get; set; } = string.Empty;
     private List<UnicodeCharInfo> UnicodeList = new List<UnicodeCharInfo>();
     private void InputText(ChangeEventArgs e)
     {
+        var Value = e.Value.ToString();
         UnicodeList.Clear();
-        UnicodeList.AddRange(new UnicodeEnumerable(e.Value.ToString()));
-    } 
+        UnicodeList.AddRange(new UnicodeEnumerable(Value));
+        if (string.IsNullOrEmpty(Value))
+            nav.NavigateTo("/input/");
+        else
+            nav.NavigateTo($"/input/{Uri.EscapeUriString(Value)}");
+    }
+    protected override Task OnInitializedAsync()
+    {
+        InputText(new ChangeEventArgs { Value = Value ?? string.Empty }) ;
+        return base.OnInitializedAsync();
+    }
 }
