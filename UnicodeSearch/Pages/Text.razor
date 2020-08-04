@@ -1,6 +1,6 @@
 @page "/";
-@page "/input";
-@page "/input/{Value}";
+@page "/text";
+@page "/text/{Value}";
 @using System.Unicode;
 @inject NavigationManager nav;
 <div class="text-right">Unicode @UnicodeInfo.UnicodeVersion</div>
@@ -99,9 +99,9 @@
         UnicodeList.Clear();
         UnicodeList.AddRange(new UnicodeEnumerable(Value));
         if (string.IsNullOrEmpty(Value))
-            nav.NavigateTo("/input/");
+            nav.NavigateTo("/text/");
         else
-            nav.NavigateTo($"/input/{Uri.EscapeUriString(Value)}");
+            nav.NavigateTo($"/text/{Uri.EscapeUriString(Value)}");
     }
     protected override Task OnInitializedAsync()
     {
