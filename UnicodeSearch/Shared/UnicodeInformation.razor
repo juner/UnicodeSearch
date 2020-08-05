@@ -1,0 +1,68 @@
+@using System.Unicode
+<div class="row my-3">
+    <div class="px-3">
+        <div class="display-2 d-flex" style="max-width:8ex;min-width:8ex;font-family:monospace;">
+            <span>U+</span>
+            <span class="flex-fill text-right">@string.Format("{0:X4}", UnicodeInfo.CodePoint)</span>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-auto col-xl-auto">
+        <div class="row">
+            <div class="px-3">
+                <span class="d-inline-block p-1 border mr-1" style="min-width:2ex;min-height:2ex">&#8203;@(UnicodeInfo.GetDisplayText())&#8203;</span>
+            </div>
+            <div class="col-auto overflow-auto">@(UnicodeInfo.Name ?? UnicodeInfo.OldName)</div>
+        </div>
+        <table class="table table-striped">
+            <tbody>
+                @foreach( var property in typeof(System.Unicode.UnicodeCharInfo).GetProperties())
+                {
+                    var value = property.GetValue(UnicodeInfo);
+                    if (value is null)
+                        continue;
+                    if (value is string strval && string.IsNullOrEmpty(strval))
+                        continue;
+                    if (!(value is string) && value is System.Collections.IEnumerable enumerable && !enumerable.Cast<object>().Any())
+                        continue;
+                    var isEnumFlags = value.GetType().IsEnum && Attribute.IsDefined(value.GetType(), typeof(FlagsAttribute));
+                    <tr>
+                        <th class="align-top">@(property.Name):</th>
+                        <td>
+                            @if (value is Enum _enum && isEnumFlags)
+                            {
+                                <div class="column">
+                                @foreach(var e in Enum.GetValues(value.GetType())) {
+                                    if (!_enum.HasFlag(_enum))
+                                        continue;
+                                    <div>@e</div>
+                                }
+                                </div>
+                            }else if(value is UnicodeCrossReferenceCollection unicodeCrossReferenceCollection) 
+                            {
+                                <div class="column">
+                                @foreach(var unicodeCrossReference in unicodeCrossReferenceCollection) 
+                                {
+                                    var ucr = System.Unicode.UnicodeInfo.GetCharInfo(unicodeCrossReference);
+                                    <div>
+                                        <NavLink href="@($"/code/{unicodeCrossReference:X4}")">
+                                            @($"{ucr.Name} (U+{unicodeCrossReference:X4})")
+                                        </NavLink>
+                                    </div>
+                                }
+                                </div>
+                            } else {
+                                @value
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@code {
+    // Demonstrates how a parent component can supply parameters
+    [Parameter]
+    public UnicodeCharInfo? Unicode { get; set; }
+    public UnicodeCharInfo UnicodeInfo => Unicode ?? throw new InvalidOperationException(nameof(Unicode) + "is null");
+}
