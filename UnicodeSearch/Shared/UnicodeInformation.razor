@@ -56,6 +56,27 @@
                                     </div>
                                 }
                                 </div>
+                            } else if (value is System.Unicode.UnicodeRadicalStrokeCountCollection unicodeRadicalStrokeCountCollection) 
+                            {
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Radical</th>
+                                            <th scope="col">StrokeCount</th>
+                                            <th scope="col">IsSimplified</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                @foreach(var unicodeRadicalStrokeCount in unicodeRadicalStrokeCountCollection)
+                                {
+                                        <tr>
+                                            <td>@unicodeRadicalStrokeCount.Radical</td>
+                                            <td>@unicodeRadicalStrokeCount.StrokeCount</td>
+                                            <td>@unicodeRadicalStrokeCount.IsSimplified</td>
+                                        </tr>
+                                }
+                                    </tbody>
+                                </table>
                             } else {
                                 @value
                             }
