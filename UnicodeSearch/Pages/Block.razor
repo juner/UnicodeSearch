@@ -1,0 +1,30 @@
+@page "/block";
+@page "/block/{BlockName}";
+@using System.Unicode;
+@inject NavigationManager nav;
+<Title>@(BlockInfo is UnicodeBlock _BlockInfo ? _BlockInfo.Name + " - " : "") Unicode Block Information</Title>
+<div class="text-right">Unicode @UnicodeInfo.UnicodeVersion</div>
+@if (BlockInfo is UnicodeBlock _BlockInfo)
+{
+    @foreach(var CodePoint in _BlockInfo.CodePointRange)
+    {
+        var UnicodeInfo = System.Unicode.UnicodeInfo.GetCharInfo(CodePoint);
+        <UnicodeMiniInfo UnicodeInfo="@UnicodeInfo" />
+    }
+} else {
+    @foreach (var _Block in UnicodeInfo.GetBlocks()) {
+        <div class="row">
+            <NavLink href="@($"/block/{Uri.EscapeUriString(_Block.Name)}")">
+                @_Block.Name
+            </NavLink>
+        </div>
+    }
+}
+@code {
+    [Parameter]
+    public string BlockName { get; set; } = string.Empty;
+    private UnicodeBlock? BlockInfo
+     => string.IsNullOrEmpty(BlockName) ? (UnicodeBlock?)null :
+        UnicodeInfo.GetBlocks()
+        .FirstOrDefault(b => b.Name == BlockName);
+}

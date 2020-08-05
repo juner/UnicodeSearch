@@ -77,6 +77,10 @@
                                 }
                                     </tbody>
                                 </table>
+                            } else if(property.Name == "Block"){
+                                <NavLink href="@($"/block/{Uri.EscapeUriString(value.ToString())}")">
+                                    @value
+                                </NavLink>
                             } else {
                                 @value
                             }

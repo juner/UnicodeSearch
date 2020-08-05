@@ -12,26 +12,8 @@
 {
     @foreach (var UnicodeInfo in UnicodeList)
     {
-        var CodePoint = string.Format("{0:X4}", UnicodeInfo.CodePoint);
-        <div class="row my-3">
-            <div class="px-3">
-                <div class="display-2 d-flex" style="max-width:8ex;min-width:8ex;font-family:monospace;">
-                    <span>U+</span>
-                    <span class="flex-fill text-right">@CodePoint</span>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-auto col-xl-auto">
-                <div class="row">
-                    <div class="px-3">
-                        <span class="d-inline-block p-1 border mr-1" style="min-width:2ex;min-height:2ex">&#8203;@(UnicodeInfo.GetDisplayText())&#8203;</span>
-                    </div>
-                    <div class="col-auto overflow-auto">@(UnicodeInfo.Name ?? UnicodeInfo.OldName)</div>
-                </div>
-                <div class="row px-3">
-                    <NavLink href="@($"/code/{CodePoint}")" Match="NavLinkMatch.All">more information</NavLink>
-                </div>
-            </div>
-        </div>}
+        <UnicodeMiniInfo UnicodeInfo="@UnicodeInfo"/>
+    }
 }
 @code {
     [Parameter]
