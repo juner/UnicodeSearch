@@ -14,6 +14,12 @@
             <div class="col-auto overflow-auto">@(UnicodeInfo.Name ?? UnicodeInfo.OldName)</div>
         </div>
         <table class="table table-striped table-responsive">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">name</th>
+                    <th scope="col">value</th>
+                </tr>
+            </thead>
             <tbody>
                 @foreach( var property in typeof(System.Unicode.UnicodeCharInfo).GetProperties())
                 {
@@ -26,7 +32,7 @@
                         continue;
                     var isEnumFlags = value.GetType().IsEnum && Attribute.IsDefined(value.GetType(), typeof(FlagsAttribute));
                     <tr>
-                        <th class="align-top">@(property.Name):</th>
+                        <th class="align-top" scope="row">@(property.Name):</th>
                         <td>
                             @if (value is Enum _enum && isEnumFlags)
                             {
