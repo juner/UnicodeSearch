@@ -1,15 +1,40 @@
 @page "/block";
 @page "/block/{BlockName}";
+@page "/block/{BlockName}/{PageIndex_}";
 @using System.Unicode;
 @inject NavigationManager nav;
 <Title>@(BlockInfo is UnicodeBlock _BlockInfo ? _BlockInfo.Name + " - " : "") Unicode Block Information</Title>
+<h1>@(BlockInfo is UnicodeBlock _BlockInfo ? _BlockInfo.Name : "Unicode Blocks")</h1>
 <div class="text-right">Unicode @UnicodeInfo.UnicodeVersion</div>
-@if (BlockInfo is UnicodeBlock _BlockInfo)
+@if (BlockInfo is UnicodeBlock)
 {
-    @foreach(var CodePoint in _BlockInfo.CodePointRange)
+    var HasPrev = PageIndex > 1;
+    var HasNext = this.HasNext;
+    @if (HasPrev || HasNext) {
+    <div class="row">
+        @if (HasPrev) {
+            <NavLink href="@($"/block/{Uri.EscapeUriString(BlockName)}/{PageIndex -1}")">Prev</NavLink>
+        }
+        <div class="text-center flex-fill">@(PageIndex+1)/@MaxPages</div>
+        @if (HasNext) {
+            <NavLink href="@($"/block/{Uri.EscapeUriString(BlockName)}/{PageIndex + 1}")">Next</NavLink>
+        }
+    </div>
+    }
+    @foreach(var UnicodeInfo in UnicodeInfos)
     {
-        var UnicodeInfo = System.Unicode.UnicodeInfo.GetCharInfo(CodePoint);
         <UnicodeMiniInfo UnicodeInfo="@UnicodeInfo" />
+    }
+    @if (HasPrev || HasNext) {
+    <div class="row">
+        @if (HasPrev) {
+            <NavLink href="@($"/block/{Uri.EscapeUriString(BlockName)}/{PageIndex -1}")">Prev</NavLink>
+        }
+        <div class="text-center flex-fill">@(PageIndex+1)/@MaxPages</div>
+        @if (HasNext) {
+            <NavLink href="@($"/block/{Uri.EscapeUriString(BlockName)}/{PageIndex + 1}")">Next</NavLink>
+        }
+    </div>
     }
 } else {
     @foreach (var _Block in UnicodeInfo.GetBlocks()) {
@@ -23,8 +48,22 @@
 @code {
     [Parameter]
     public string BlockName { get; set; } = string.Empty;
+    [Parameter]
+    public string PageIndex_ {get;set;} = "0";
+    public int PageIndex => int.TryParse(PageIndex_, out var index) ? index : 0;
+    public int BufferCount {get;set;} = 0x16;
     private UnicodeBlock? BlockInfo
      => string.IsNullOrEmpty(BlockName) ? (UnicodeBlock?)null :
         UnicodeInfo.GetBlocks()
         .FirstOrDefault(b => b.Name == BlockName);
+    private IEnumerable<int> BaseRange => (BlockInfo?.CodePointRange ?? Enumerable.Empty<int>());
+    private IEnumerable<IEnumerable<int>> Pages => BaseRange.Buffer(BufferCount);
+    private bool HasNext => Pages.Skip(PageIndex+1).Any();
+    private int MaxPages => Pages.Count();
+    private IEnumerable<UnicodeCharInfo> UnicodeInfos
+         => Pages
+             .Skip(PageIndex)
+             .Take(1)
+             .SelectMany(Range => Range)
+             .Select(CodePoint => System.Unicode.UnicodeInfo.GetCharInfo(CodePoint));
 }
