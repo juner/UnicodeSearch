@@ -16,6 +16,7 @@
 {
     var HasPrev = PageIndex > 1;
     var HasNext = this.HasNext;
+    var MaxPages = this.MaxPages;
     @if (HasPrev || HasNext) {
     <div class="row">
         @if (HasPrev) {
@@ -25,6 +26,9 @@
         @if (HasNext) {
             <NavLink href="@($"/block/{Uri.EscapeUriString(BlockName)}/{PageIndex + 1}")">Next</NavLink>
         }
+    </div>
+    <div class="row">
+        <input class="flex-fill" type="range" min="0" max="@MaxPages" step="1" value="@PageIndex" @oninput=PageChange />
     </div>
     }
     @foreach(var UnicodeInfo in UnicodeInfos)
@@ -75,4 +79,9 @@
              .Take(1)
              .SelectMany(Range => Range)
              .Select(CodePoint => System.Unicode.UnicodeInfo.GetCharInfo(CodePoint));
+    private void PageChange(ChangeEventArgs e){
+        if (BlockInfo is UnicodeBlock _Block) {
+            nav.NavigateTo($"/block/{Uri.EscapeUriString(_Block.Name)}/{e.Value.ToString()}");
+        }
+    }
 }
