@@ -27,8 +27,8 @@
             <NavLink href="@($"/block/{Uri.EscapeUriString(BlockName)}/{PageIndex + 1}")">Next</NavLink>
         }
     </div>
-    <div class="row">
-        <input class="flex-fill" type="range" min="0" max="@(MaxPages-1)" step="1" value="@PageIndex" @oninput=PageChange />
+    <div class="form-group">
+        <input class="form-control-range" type="range" min="0" max="@(MaxPages-1)" step="1" value="@PageIndex" @oninput=PageChange />
     </div>
     }
     @foreach(var UnicodeInfo in UnicodeInfos)
