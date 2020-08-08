@@ -28,7 +28,7 @@
         }
     </div>
     <div class="row">
-        <input class="flex-fill" type="range" min="0" max="@MaxPages" step="1" value="@PageIndex" @oninput=PageChange />
+        <input class="flex-fill" type="range" min="0" max="@(MaxPages-1)" step="1" value="@PageIndex" @oninput=PageChange />
     </div>
     }
     @foreach(var UnicodeInfo in UnicodeInfos)
