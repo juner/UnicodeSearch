@@ -4,7 +4,13 @@
 @using System.Unicode;
 @inject NavigationManager nav;
 <Title>@(BlockInfo is UnicodeBlock _BlockInfo ? _BlockInfo.Name + " - " : "") Unicode Block Information</Title>
-<h1>@(BlockInfo is UnicodeBlock _BlockInfo ? _BlockInfo.Name : "Unicode Blocks")</h1>
+@if (BlockInfo is UnicodeBlock _BlockInfo) {
+    <h1>@_BlockInfo.Name (@(_BlockInfo.CodePointRange.IsSingleCodePoint
+        ? $"U+{_BlockInfo.CodePointRange.FirstCodePoint:X4}" 
+        : $"U+{_BlockInfo.CodePointRange.FirstCodePoint:X4} - U+{_BlockInfo.CodePointRange.LastCodePoint:X4}"))</h1>
+} else {
+    <h1>Unicode Blocks</h1>
+}
 <div class="text-right">Unicode @UnicodeInfo.UnicodeVersion</div>
 @if (BlockInfo is UnicodeBlock)
 {
@@ -40,7 +46,10 @@
     @foreach (var _Block in UnicodeInfo.GetBlocks()) {
         <div class="row">
             <NavLink href="@($"/block/{Uri.EscapeUriString(_Block.Name)}")">
-                @_Block.Name
+                @_Block.Name (@(
+                    _Block.CodePointRange.IsSingleCodePoint 
+                    ? $"U+{_Block.CodePointRange.FirstCodePoint:X4}" 
+                    : $"U+{_Block.CodePointRange.FirstCodePoint:X4} - U+{_Block.CodePointRange.LastCodePoint:X4}"))
             </NavLink>
         </div>
     }
