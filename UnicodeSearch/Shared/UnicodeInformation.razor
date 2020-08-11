@@ -10,7 +10,7 @@
     <div class="col-sm-12 col-md-auto col-xl-auto">
         <div class="row col-auto overflow-auto">
             @(UnicodeInfo.Name ?? UnicodeInfo.OldName)
-            <button class="btn btn-link mx-2" @onclick="async () => await clipboard.WriteTextAsync(char.ConvertFromUtf32(UnicodeInfo.CodePoint))">📋</button>
+            <button class="btn btn-link p-0 m-0 mx-1" title="copy to clipboard" @onclick="async () => await clipboard.WriteTextAsync(char.ConvertFromUtf32(UnicodeInfo.CodePoint))">📋</button>
         </div>
         <table class="table table-striped table-responsive">
             <thead class="thead-dark">

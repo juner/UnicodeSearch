@@ -13,7 +13,7 @@
     <div class="col-sm-12 col-md col-xl">
         <div class="row col-auto overflow-auto">
             @(UnicodeInfo.Name ?? UnicodeInfo.OldName)
-            <button class="btn btn-link mx-2" title="copy to clipboard" @onclick="async () => await clipboard.WriteTextAsync(char.ConvertFromUtf32(UnicodeInfo.CodePoint))">📋</button>
+            <button class="btn btn-link p-0 m-0 mx-1" title="copy to clipboard" @onclick="async () => await clipboard.WriteTextAsync(char.ConvertFromUtf32(UnicodeInfo.CodePoint))">📋</button>
         </div>
         <div class="row px-3">
             <NavLink href="@($"/code/{CodePoint}")" Match="NavLinkMatch.All">more information</NavLink>
