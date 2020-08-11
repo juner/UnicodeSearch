@@ -1,3 +1,4 @@
+@using System.Unicode;
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">UnicodeSearch</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -18,6 +19,9 @@
             </NavLink>
         </li>
     </ul>
+    <div class="other flex-column">
+        <div class="other-item text-right">Unicode @UnicodeInfo.UnicodeVersion</div>
+    </div>
 </div>
 
 @code {

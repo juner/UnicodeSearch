@@ -4,7 +4,6 @@
 @inject NavigationManager nav;
 <Title>@(int.TryParse(CodePoint, NumberStyles.HexNumber, NumberFormatInfo.InvariantInfo, out var _CodePoint) && char.ConvertFromUtf32(_CodePoint) is string charactor 
     ? charactor + " - " : "") Unicode Charactor</Title>
-<div class="text-right">Unicode @UnicodeInfo.UnicodeVersion</div>
 @if (int.TryParse(CodePoint, NumberStyles.HexNumber, NumberFormatInfo.InvariantInfo, out var _CodePoint))
 {
     var UnicodeInfo = System.Unicode.UnicodeInfo.GetCharInfo(_CodePoint);

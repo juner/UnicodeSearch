@@ -77,6 +77,14 @@ app {
         .sidebar .nav-item:last-of-type {
             padding-bottom: 1rem;
         }
+        .sidebar .other {
+            padding-right:1rem;
+        }
+        .sidebar .other-item {
+            color: white;
+            height: 3rem;
+            line-height: 3rem;
+        }
 
         .sidebar .nav-item a {
             color: #d7d7d7;
