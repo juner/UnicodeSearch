@@ -8,11 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CurrieTechnologies.Razor.Clipboard" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
     <PackageReference Include="System.Net.Http.Json" />
-    <PackageReference Include="Toolbelt.Blazor.HeadElement"/>
+    <PackageReference Include="Toolbelt.Blazor.HeadElement" />
     <PackageReference Include="UnicodeInformation" />
   </ItemGroup>
 
@@ -25,13 +26,13 @@
   </ItemGroup>
 
   <Target Name="PostBuild" BeforeTargets="PostBuildEvent">
-    <Exec Command="dotnet tool restore"/>
-    <Exec Command="dotnet tool run dotnet-find-replace -- $(OutDir) --find &quot;return r[.]loadResource\(o,t\(o\),e\[o\],n\)&quot; --replace &quot;var p = r.loadResource(o,t(o),e[o],n); p.response.then((x) =&gt; { if (typeof window.loadResourceCallback === &apos;function&apos;) { window.loadResourceCallback(Object.keys(e).length, o, x);}}); return p;&quot; --include &quot;blazor[.]webassembly[.]js&quot;"/>
+    <Exec Command="dotnet tool restore" />
+    <Exec Command="dotnet tool run dotnet-find-replace -- $(OutDir) --find &quot;return r[.]loadResource\(o,t\(o\),e\[o\],n\)&quot; --replace &quot;var p = r.loadResource(o,t(o),e[o],n); p.response.then((x) =&gt; { if (typeof window.loadResourceCallback === 'function') { window.loadResourceCallback(Object.keys(e).length, o, x);}}); return p;&quot; --include &quot;blazor[.]webassembly[.]js&quot;" />
   </Target>
 
   <Target Name="Publish Build" AfterTargets="AfterPublish">
-    <Exec Command="dotnet tool restore"/>
-    <Exec Command="dotnet tool run dotnet-find-replace -- $(PublishDir) --find &quot;return r[.]loadResource\(o,t\(o\),e\[o\],n\)&quot; --replace &quot;var p = r.loadResource(o,t(o),e[o],n); p.response.then((x) =&gt; { if (typeof window.loadResourceCallback === &apos;function&apos;) { window.loadResourceCallback(Object.keys(e).length, o, x);}}); return p;&quot; --include &quot;blazor[.]webassembly[.]js&quot;"/>
+    <Exec Command="dotnet tool restore" />
+    <Exec Command="dotnet tool run dotnet-find-replace -- $(PublishDir) --find &quot;return r[.]loadResource\(o,t\(o\),e\[o\],n\)&quot; --replace &quot;var p = r.loadResource(o,t(o),e[o],n); p.response.then((x) =&gt; { if (typeof window.loadResourceCallback === 'function') { window.loadResourceCallback(Object.keys(e).length, o, x);}}); return p;&quot; --include &quot;blazor[.]webassembly[.]js&quot;" />
   </Target>
 
 </Project>

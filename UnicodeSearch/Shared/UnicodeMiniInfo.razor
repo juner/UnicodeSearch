@@ -1,4 +1,6 @@
 @using System.Unicode
+@using CurrieTechnologies.Razor.Clipboard
+@inject ClipboardService clipboard
 @{
     var CodePoint = $"{UnicodeInfo.CodePoint:X4}";
 }
@@ -9,7 +11,10 @@
         <span class="display-3 px-3 mx-1 d-inline-block p-1 border mr-1 text-center" style="min-width:2ex;min-height:2ex"><span class="display-4">&#8203;</span>@(UnicodeInfo.GetDisplayText())<span class="display-4">&#8203;</span></span>
     </div>
     <div class="col-sm-12 col-md col-xl">
-        <div class="row col-auto overflow-auto">@(UnicodeInfo.Name ?? UnicodeInfo.OldName)</div>
+        <div class="row col-auto overflow-auto">
+            @(UnicodeInfo.Name ?? UnicodeInfo.OldName)
+            <button class="btn btn-link mx-2" title="copy to clipboard" @onclick="async () => await clipboard.WriteTextAsync(char.ConvertFromUtf32(UnicodeInfo.CodePoint))">📋</button>
+        </div>
         <div class="row px-3">
             <NavLink href="@($"/code/{CodePoint}")" Match="NavLinkMatch.All">more information</NavLink>
         </div>
