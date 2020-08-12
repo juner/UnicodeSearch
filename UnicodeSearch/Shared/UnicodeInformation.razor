@@ -2,10 +2,10 @@
 @using CurrieTechnologies.Razor.Clipboard
 @inject ClipboardService clipboard
 <div class="row my-3">
-    <div class="row display-2 px-3">
-        <span class="display-3 align-self-end" style="font-family:monospace;">U+</span>
-        <span class="display-3 align-self-end flex-fill text-right d-inline-block" style="font-family:monospace;min-width:6ex;">@($"{UnicodeInfo.CodePoint:X4}")</span>
-        <span class="display-3 px-3 mx-1 d-inline-block p-1 border mr-1 text-center" style="min-width:2ex;min-height:2ex"><span class="display-4">&#8203;</span>@(UnicodeInfo.GetDisplayText())<span class="display-4">&#8203;</span></span>
+    <div class="row px-3 display-sm-4 display-3">
+        <span class="align-self-end" style="font-family:monospace;">U+</span>
+        <span class="align-self-end flex-fill text-right d-inline-block" style="font-family:monospace;min-width:6ex;">@($"{UnicodeInfo.CodePoint:X4}")</span>
+        <span class="px-3 mx-1 d-inline-block p-1 border mr-1 text-center" style="min-width:2ex;min-height:2ex"><span class="display-sm-5 display-4">&#8203;</span>@(UnicodeInfo.GetDisplayText())<span class="display-sm-5 display-4">&#8203;</span></span>
     </div>
     <div class="col-sm-12 col-md-auto col-xl-auto">
         <div class="row col-auto overflow-auto">
