@@ -5,10 +5,12 @@
     var CodePoint = $"{UnicodeInfo.CodePoint:X4}";
 }
 <div class="row my-3">
-    <div class="row px-3 display-sm-4 display-3">
-        <span class="align-self-end" style="font-family:monospace;">U+</span>
-        <span class="align-self-end flex-fill text-right d-inline-block" style="font-family:monospace;min-width:6ex;max-width:6ex;">@CodePoint</span>
-        <span class="ml-1 p-1 d-inline-block border text-center text-nowrap" style="min-width:2ex;min-height:2ex"><span class="display-sm-5 display-4" style="margin-left:-1ex">&#8203;</span>@(UnicodeInfo.GetDisplayText())<span class="display-sm-5 display-4" style="margin-right:-1ex">&#8203;</span></span>
+    <div class="row px-3 align-items-start display-sm-4 display-3" style="vertical-align:bottom;">
+        <div class="flex-fill align-items-start"><div class="row m-0 align-items-end">
+            <span style="font-family:monospace;">U+</span>
+            <span class="flex-fill text-right d-inline-block" style="font-family:monospace;min-width:6ex;max-width:6ex;">@CodePoint</span>
+            <span class="ml-1 p-1 d-inline-block border text-center text-nowrap" style="min-width:2ex;min-height:2ex"><span class="display-sm-5 display-4" style="margin-left:-1ex">&#8203;</span>@(UnicodeInfo.GetDisplayText())<span class="display-sm-5 display-4" style="margin-right:-1ex">&#8203;</span></span>
+        </div></div>
     </div>
     <div class="col-sm-12 col-md col-xl">
         <div class="row col-auto overflow-auto">
