@@ -31,10 +31,13 @@ namespace UnicodeSearch.Tests
             Console.WriteLine("EXPECTED:");
             foreach (var e in Expected)
                 Console.WriteLine($"U+{e.CodePoint:X4}: {e.GetDisplayText()}");
-            var Actual = new UnicodeEnumerable(Text).ToArray();
-            Console.WriteLine("EXPECTED:");
-            foreach (var a in Actual)
+            var Actual = new List<UnicodeCharInfo>();
+            Console.WriteLine("ACTUAL:");
+            foreach (var a in new UnicodeEnumerable(Text))
+            {
                 Console.WriteLine($"U+{a.CodePoint:X4}: {a.GetDisplayText()}");
+                Actual.Add(a);
+            }
             CollectionAssert.AreEqual(Expected, Actual);
         }
     }
