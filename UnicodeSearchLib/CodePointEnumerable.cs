@@ -11,7 +11,8 @@ namespace UnicodeSearch
         readonly string Text;
         public CodePointEnumerable(string Text)
             => this.Text = Text;
-        public IEnumerator<int> GetEnumerator() => new CodePointEnumerator(Text);
+        public CodePointEnumerator GetEnumerator() => new CodePointEnumerator(Text);
+        IEnumerator<int> IEnumerable<int>.GetEnumerator() => GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         public override string ToString() => Text;

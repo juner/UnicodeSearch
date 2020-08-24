@@ -10,13 +10,13 @@ namespace UnicodeSearch
     public struct CodePointEnumerator : IEnumerator<int>
     {
         public CodePointEnumerator(string Text)
-            => (text, this.index) = (Text, -1);
+            => (text, this.index) = (Text, 0);
         int index;
         readonly string text;
-        public int Index => index;
-        public bool IsNoStart => index < 0;
-        public bool IsEnd => !(index < text.Length);
-        public bool CurrentIsSurrogatePair => IsNoStart || IsEnd ? false : char.IsSurrogate(text, index);
+        public readonly int Index => index - 1;
+        public readonly bool IsNoStart => Index < 0;
+        public readonly bool IsEnd => !(Index < text.Length);
+        public readonly bool CurrentIsSurrogatePair => IsNoStart || IsEnd ? false : char.IsSurrogate(text, Index);
         public int Current
         {
             get
@@ -25,7 +25,7 @@ namespace UnicodeSearch
                     throw new InvalidOperationException("this enumerator is no MoveNext().");
                 if (IsEnd)
                     throw new InvalidOperationException("this enumerator is end.");
-                return char.ConvertToUtf32(text, index);
+                return char.ConvertToUtf32(text, Index);
             }
         }
 
@@ -44,7 +44,8 @@ namespace UnicodeSearch
 
         public void Reset()
         {
-            index = -1;
+            index = 0;
         }
+        public override string ToString() => $"{text},{Index}";
     }
 }
