@@ -20,7 +20,7 @@
     private List<UnicodeCharInfo> UnicodeList = new List<UnicodeCharInfo>();
     private void InputText(ChangeEventArgs e)
     {
-        var Value = e.Value.ToString();
+        var Value = $"{e.Value}";
         UnicodeList.Clear();
         UnicodeList.AddRange(new UnicodeEnumerable(Value));
         if (string.IsNullOrEmpty(Value))

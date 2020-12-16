@@ -80,7 +80,7 @@
              .Select(CodePoint => System.Unicode.UnicodeInfo.GetCharInfo(CodePoint));
     private void PageChange(ChangeEventArgs e){
         if (BlockInfo is UnicodeBlock _Block) {
-            nav.NavigateTo($"/block/{Uri.EscapeUriString(_Block.Name)}/{e.Value.ToString()}");
+            nav.NavigateTo($"/block/{Uri.EscapeUriString(_Block.Name)}/{e.Value}");
         }
     }
 }

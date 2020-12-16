@@ -29,7 +29,7 @@
                         continue;
                     if (value is string strval && string.IsNullOrEmpty(strval))
                         continue;
-                    if (!(value is string) && value is System.Collections.IEnumerable enumerable && !enumerable.Cast<object>().Any())
+                    if (value is not string && value is System.Collections.IEnumerable enumerable && !enumerable.Cast<object>().Any())
                         continue;
                     var isEnumFlags = value.GetType().IsEnum && Attribute.IsDefined(value.GetType(), typeof(FlagsAttribute));
                     <tr>
@@ -79,7 +79,7 @@
                                     </tbody>
                                 </table>
                             } else if(property.Name == "Block"){
-                                <NavLink href="@($"/block/{Uri.EscapeUriString(value.ToString())}")">
+                                <NavLink href="@($"/block/{Uri.EscapeUriString($"{value}")}")">
                                     @value
                                 </NavLink>
                             } else {

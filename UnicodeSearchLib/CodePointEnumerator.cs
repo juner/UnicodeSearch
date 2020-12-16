@@ -16,7 +16,7 @@ namespace UnicodeSearch
         public readonly int Index => index - 1;
         public readonly bool IsNoStart => Index < 0;
         public readonly bool IsEnd => !(Index < text.Length);
-        public readonly bool CurrentIsSurrogatePair => IsNoStart || IsEnd ? false : char.IsSurrogate(text, Index);
+        public readonly bool CurrentIsSurrogatePair => !IsNoStart && !IsEnd && char.IsSurrogate(text, Index);
         public int Current
         {
             get
